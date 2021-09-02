@@ -1,7 +1,7 @@
 package com.ivoronline.springboot_db_query_native_named_repository.controllers;
 
 import com.ivoronline.springboot_db_query_native_named_repository.entities.Person;
-import com.ivoronline.springboot_db_query_native_named_repository.repositories.PersonRepository;
+import com.ivoronline.springboot_db_query_native_named_repository.services.DBAccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,26 +9,44 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MyController {
 
-  @Autowired PersonRepository personRepository;
+  @Autowired DBAccess dbAccess;
 
   //================================================================
-  // RETURN PERSON INDEXED
+  // SELECT PERSON BY NAME AGE
   //================================================================
-  @RequestMapping("ReturnPersonIndexed")
-  Object returnPersonIndexedUsingRepository() {
-    Object object = personRepository.findByNameAgeIndexed("John", 20);
-    return object;
+  @RequestMapping("SelectPersonByNameAge")
+  Person selectPersonByNameAge() {
+    Person person = dbAccess.selectPersonByNameAge();
+    return person;
   }
 
   //================================================================
-  // RETURN PERSON INDEXED
+  // INSERT PERSON
   //================================================================
-  @RequestMapping("ReturnPersonNamed")
-  Object returnPersonNamedUsingRepository() {
-    Object object = personRepository.findByNameAgeNamed("John", 20);
-    return object;
+  @RequestMapping("InsertPerson")
+  String insertPerson() {
+    Integer insertedRecords = dbAccess.insertPerson();
+    return  insertedRecords + " Records Inserted";
+
   }
 
+  //================================================================
+  // UPDATE PERSON
+  //================================================================
+  @RequestMapping("UpdatePerson")
+  String updatePerson() {
+    Integer updatedRecords = dbAccess.updatePerson();
+    return  updatedRecords + " Records Updated";
+  }
+
+  //================================================================
+  // DELETE PERSON
+  //================================================================
+  @RequestMapping("DeletePerson")
+  String deletePerson() {
+    Integer deletedRecords = dbAccess.deletePerson();
+    return  deletedRecords + " Records Deleted";
+  }
 
 }
 
