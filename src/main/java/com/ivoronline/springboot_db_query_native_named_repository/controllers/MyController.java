@@ -9,14 +9,15 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class MyController {
 
+  //PROPERTIES
   @Autowired PersonRepository personRepository;
 
   //================================================================
-  // SELECT PERSON BY NAME AGE
+  // SELECT PERSON
   //================================================================
-  @RequestMapping("SelectPersonByNameAge")
-  Person selectPersonByNameAge() {
-    Person person = personRepository.selectPersonByNameAge("John", 20);
+  @RequestMapping("SelectPerson")
+  Person selectPerson() {
+    Person person = personRepository.selectPerson("John", 20);
     return person;
   }
 
